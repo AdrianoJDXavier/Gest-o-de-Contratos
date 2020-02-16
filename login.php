@@ -3,7 +3,8 @@
 
 <head>
     <meta charset="utf-8">
-    <link rel="shortcut icon" href="img/logo.png">
+    <link rel="shortcut icon" href="asset/img/logo.png">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
     <title>ColaboreGA</title>
 </head>
@@ -131,6 +132,16 @@
         }
     </style>
     <div class="login-page">
+        <?php
+        if (isset($_REQUEST['erro'])) {
+            $erro = $_REQUEST['erro'];
+        ?>
+            <input type="hidden" id="erro" value="<?= $erro ?>" />
+        <?
+        } else {
+            echo "";
+        }
+        ?>
         <div class="form">
             <form class="register-form">
                 <input type="text" placeholder="name" />
@@ -139,23 +150,50 @@
                 <button>create</button>
                 <p class="message">Already registered? <a href="#">Sign In</a></p>
             </form>
-            <form class="login-form">
-                <input type="email" placeholder="email" />
-                <input type="senha" placeholder="senha" />
-                <button>login</button>
+            <form class="login-form" action="Controller/LoginController.php?opcao=1" method="post">
+                <input type="hidden" value="1" />
+                <input type="email" name="email" placeholder="email" />
+                <input type="password" name="senha" placeholder="senha" />
+                <button class="btn" type="submit">Login</button>
                 <p class="message">Sem Registro? <a href="#">Criar Conta</a></p>
             </form>
         </div>
     </div>
-    <script src="asset/js/jquery-1.8.3.min.js"></script>
-    <script>
-        $ = jQuery.noConflict();
-        $('.message a').click(function() {
-            $('form').animate({
-                height: "toggle",
-                opacity: "toggle"
-            }, "slow");
-        });
-    </script>
+
+    <div class="modal fade" id="modalErro" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content panel-danger">
+                <div class="modal-header panel-heading">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title" style="text-align: center; font-weight: bold">Erro!</h4>
+                </div>
+                <div class="modal-body">
+                    <p style="color: #EF3B3A; text-align: center; font-weight: bold"><?= $erro ?></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    < <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js">
+        </script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script>
+            $ = jQuery.noConflict();
+            $('.message a').click(function() {
+                $('form').animate({
+                    height: "toggle",
+                    opacity: "toggle"
+                }, "slow");
+            });
+            $(document).ready(function() {
+                var erro = $('#erro').val();
+
+                if (erro != null) {
+                    $('#modalErro').appendTo("body").modal('show');
+                }
+            });
+        </script>
 </body>
 <html>

@@ -1,61 +1,89 @@
-@extends('Layout.principal')
-@section('conteudo')
-    <section class="panel">
+<?php
+include_once('../Layout/principal.php');
+function formatarData($data) {
+    return date('d/m/Y', $data);
+}
+
+$participante = $_SESSION['participante'];
+?>
+<section class="panel">
         <header class="panel-heading">
-            Cadastrar Participantes
+            Atualizar Participante
         </header>
         <div class="panel-body">
             <div class="form">
-                <form class="form-validate form-horizontal " id="register_form" method="get" action="criaParticipante">
+                <form class="form-validate form-horizontal " id="register_form" method="get" action="../../Controller/ParticipanteController.php">
+                <input type="hidden" name="opcao" value="5">
+                <input type="hidden" name="status" value="1">
+                <input type="hidden" name="id" value="<?=$participante->idParticipante?>">
                     <div class="form-group ">
                         <label for="nome" class="control-label col-lg-2">Nome <span class="required">*</span></label>
                         <div class="col-lg-10">
-                            <input class=" form-control" id="nome" name="nome" type="text"/>
+                            <input class=" form-control" id="nome" name="nome" type="text" value="<?=$participante->nome?>"/>
                         </div>
                     </div>
                     <div class="form-group ">
                         <label for="matricula" class="control-label col-lg-2">Matricula <span class="required">*</span></label>
                         <div class="col-lg-10">
-                            <input class=" form-control" id="matricula" name="matricula" type="text"/>
+                            <input class=" form-control" id="matricula" name="matricula" type="text" value="<?=$participante->matricula?>" readonly/>
                         </div>
                     </div>
                     <div class="form-group ">
                         <label for="cpf" class="control-label col-lg-2">CPF <span
                                     class="required">*</span></label>
                         <div class="col-lg-10">
-                            <input class="form-control " id="cpf" name="cpf" type="text" onKeyUp="maskIt(this,event,'###.###.###-##',true)"/>
+                            <input class="form-control " id="cpf" name="cpf" type="text" onKeyUp="maskIt(this,event,'###.###.###-##',true)" value="<?=$participante->cpf?>" readonly/>
                         </div>
                     </div>
                     <div class="form-group ">
                         <label for="rg" class="control-label col-lg-2">RG <span
                                     class="required">*</span></label>
                         <div class="col-lg-10">
-                            <input class="form-control " id="rg" name="rg" type="text" onKeyUp="maskIt(this,event,'####.###.###',true)"/>
+                            <input class="form-control " id="rg" name="rg" type="text" onKeyUp="maskIt(this,event,'####.###.###',true)"  value="<?=$participante->rg?>" readonly/>
                         </div>
                     </div>
                     <div class="form-group ">
                         <label for="setor" class="control-label col-lg-2">Setor <span
                                     class="required">*</span></label>
                         <div class="col-lg-10">
-                            <input class="form-control " id="setor" name="setor" type="text"/>
+                            <input class="form-control " id="setor" name="setor" type="text" value="<?=$participante->setor?>"/>
                         </div>
                     </div>
                     <div class="form-group ">
                         <label for="cargo" class="control-label col-lg-2">Cargo <span class="required">*</span></label>
                         <div class="col-lg-10">
-                            <input class="form-control " id="cargo" name="cargo" type="text"/>
+                            <input class="form-control " id="cargo" name="cargo" type="text" value="<?=$participante->cargo?>"/>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="funcao" class="control-label col-lg-2">Função <span class="required">*</span></label>
+                        <div class="col-lg-10">
+                            <input class="form-control " id="funcao" name="funcao" type="text" value="<?=$participante->funcao?>"/>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="tipo" class="control-label col-lg-2">Tipo <span class="required">*</span></label>
+                        <div class="col-lg-10">
+                            <input class="form-control " id="tipo" name="tipo" type="text" value="<?=$participante->tipo?>"/>
+                        </div>
+                    </div>
+                    <div class="form-group ">
+                        <label for="data_nascimento" class="control-label col-lg-2">Data Nascimento <span class="required">*</span></label>
+                        <div class="col-lg-10">
+                            <input class="form-control " id="data_nascimento" name="data_nascimento" type="text" value="<?= date('d/m/Y', strtotime($participante->data_nascimento)) ?>" readonly/>
                         </div>
                     </div>
                     <div class="form-group ">
                         <label for="email" class="control-label col-lg-2">Email <span class="required">*</span></label>
                         <div class="col-lg-10">
-                            <input class="form-control " id="email" name="email" type="email"/>
+                            <input class="form-control " id="email" name="email" type="email" value="<?= $participante->email ?>"/>
                         </div>
                     </div>
                     <div class="form-group ">
                         <label for="senha" class="control-label col-lg-2">Senha <span class="required">*</span></label>
                         <div class="col-lg-10">
-                            <input class="form-control " id="senha" name="senha" type="password"/>
+                            <p style="color: red">Por motivos de segurança a senha não é exibida</p>
+                            <input class="form-control " id="password" name="password" type="password"/>
                         </div>
                     </div>
                     <div class="form-group">
@@ -105,4 +133,6 @@
     </script>
 
     </section>
-@stop
+<?php
+include_once('../Layout/rodape.php');
+?>

@@ -1,5 +1,5 @@
 <?php
-include_once('Layout/principal.php');
+include_once('../Layout/principal.php');
 ?>
     <div class="row">
         <div class="col-lg-12">
@@ -100,5 +100,5 @@ include_once('Layout/principal.php');
                 </div>
             </div>
 <?
-include_once("Layout/rodape.php")
+include_once("../Layout/rodape.php")
 ?>
